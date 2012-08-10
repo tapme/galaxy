@@ -147,8 +147,8 @@ public class SQLDB extends Component implements MainMemoryDB {
             try {
                 stmt = conn.createStatement();
                 String createTable = "CREATE TABLE " + table + " "
-                        + "(id " + bigintType + " PRIMARY KEY, "
-                        + "owner " + smallintType + " NOT NULL, "
+                        + "(id " + bigintType + " UNSIGNED PRIMARY KEY, "
+                        + "owner " + smallintType + " UNSIGNED NOT NULL, "
                         + "version " + bigintType + " NOT NULL, "
                         + "data " + createVarbinary(maxItemSize)
                         + ")";
@@ -188,8 +188,10 @@ public class SQLDB extends Component implements MainMemoryDB {
             while (rs.next()) {
                 final int jdbcType = rs.getInt("DATA_TYPE");
                 final String typeName = rs.getString("TYPE_NAME");
-                types.put(jdbcType, typeName);
+                if(types.get(jdbcType) == null)
+                	types.put(jdbcType, typeName);
             }
+            
             rs.close();
 
             if (bigintType == null)
@@ -315,6 +317,7 @@ public class SQLDB extends Component implements MainMemoryDB {
                     LOG.debug("CAS owner succeeded (insert).");
                     return newNode;
                 } catch (SQLException e) {
+                	LOG.debug(e.toString());
                 }
                 LOG.debug("CAS owner failed (insert).");
                 return getOwner(id);
