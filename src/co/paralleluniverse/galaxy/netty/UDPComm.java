@@ -302,7 +302,7 @@ public class UDPComm extends AbstractComm<InetSocketAddress> {
                                 return; // this is our own multicast
                             ((MessagePacket) e.getMessage()).setMulticast();
                         }
-                        messageReceived((MessagePacket) e.getMessage());
+                        UDPComm.this.messageReceived((MessagePacket) e.getMessage());
                     }
 
                     @Override
