@@ -7,6 +7,6 @@
 
 	<import resource="_jgroups.xml"/>
    
-    <import resource="_with_dumb_server.xml"/>  
+    <import resource="_with_server.xml"/>  
     <import resource="_sql.xml"/>
 </beans>
