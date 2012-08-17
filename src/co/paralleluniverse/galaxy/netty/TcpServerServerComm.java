@@ -50,14 +50,21 @@ final class TcpServerServerComm extends AbstractTcpServer implements Comm {
 
     @ConstructorProperties({"name", "cluster", "port"})
     public TcpServerServerComm(String name, Cluster cluster, int port) throws Exception {
-        this(name, cluster, port, null);
+        this(name, cluster, port, null, null);
+    }
+    
+    @ConstructorProperties({"name", "cluster", "port", "hostIp"})
+    public TcpServerServerComm(String name, Cluster cluster, int port, String hostIp) throws Exception {
+        this(name, cluster, port, null, hostIp);
     }
 
-    TcpServerServerComm(String name, final Cluster cluster, int port, final ChannelHandler testHandler) throws Exception {
+    TcpServerServerComm(String name, final Cluster cluster, int port, final ChannelHandler testHandler, String hostIp) throws Exception {
         super(name, cluster, new ChannelGroup(), port, testHandler);
+        
+        InetAddress ip = hostIp == null ? InetAddress.getLocalHost() : InetAddress.getByName(hostIp);
 
         cluster.addNodeProperty(IP_ADDRESS, true, true, INET_ADDRESS_READER_WRITER);
-        cluster.setNodeProperty(IP_ADDRESS, InetAddress.getLocalHost());
+        cluster.setNodeProperty(IP_ADDRESS, ip);
         cluster.addNodeProperty(IP_SERVER_PORT, false, true, ReaderWriters.INTEGER);
         cluster.setNodeProperty(IP_SERVER_PORT, port);
 

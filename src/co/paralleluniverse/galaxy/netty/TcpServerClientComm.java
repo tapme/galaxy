@@ -42,13 +42,20 @@ class TcpServerClientComm extends AbstractTcpClient implements ServerComm {
 
     private static final Logger LOG = LoggerFactory.getLogger(TcpServerClientComm.class);
     private MessageReceiver receiver;
-
+    
     @ConstructorProperties({"name", "cluster"})
     public TcpServerClientComm(String name, Cluster cluster) throws Exception {
+    	this(name, cluster, null);
+    }
+    
+    @ConstructorProperties({"name", "cluster", "hostIp"})
+    public TcpServerClientComm(String name, Cluster cluster, String hostIp) throws Exception {
         super(name, cluster, IP_SERVER_PORT);
+        
+        InetAddress ip = hostIp == null ? InetAddress.getLocalHost() : InetAddress.getByName(hostIp);
 
         cluster.addNodeProperty(IP_ADDRESS, true, true, INET_ADDRESS_READER_WRITER);
-        cluster.setNodeProperty(IP_ADDRESS, InetAddress.getLocalHost());
+        cluster.setNodeProperty(IP_ADDRESS, ip);
         cluster.addNodeProperty(IP_SERVER_PORT, false, true, ReaderWriters.INTEGER);
 
         cluster.addNodeChangeListener(new NodeChangeListener() {

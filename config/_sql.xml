@@ -16,12 +16,14 @@
         <constructor-arg name="dataSource">
             <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 			    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-			    <property name="url" value="jdbc:mysql://localhost:3306/test" />
-				<property name="username" value="root" />
+			    <property name="url" value="jdbc:mysql://localhost:3306/pugalaxy" />
+				<property name="username" value="colin" />
 				<property name="password" value="password" />
 			</bean>
         </constructor-arg>
         <property name="maxItemSize" value="1024"/>
         <property name="useUpdateableCursors" value="false"/>
+        <property name="bigintType" value="BIGINT SIGNED" />
+		<property name="smallintType" value="SMALLINT SIGNED" />
     </bean> 
 </beans>

@@ -34,6 +34,10 @@ public final class QueueFactory{
     private QueueFactory() {
     }
     
+    public static <T> BlockingQueue<T> getInstance() {
+    	return getInstance(0);
+    }
+    
     public static <T> BlockingQueue<T> getInstance(int maxSize) {
         if(maxSize == 0)
             return new SynchronousQueue<T>();
