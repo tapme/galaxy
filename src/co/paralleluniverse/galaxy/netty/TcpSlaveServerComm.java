@@ -90,8 +90,7 @@ final class TcpSlaveServerComm extends AbstractTcpServer implements SlaveComm {
     TcpSlaveServerComm(String name, final Cluster cluster, int port, final ChannelHandler testHandler) throws Exception {
         super(name, cluster, new ChannelGroup(), port, testHandler);
 
-        cluster.addNodeProperty(IP_ADDRESS, true, true, INET_ADDRESS_READER_WRITER);
-        cluster.setNodeProperty(IP_ADDRESS, InetAddress.getLocalHost());
+        
         cluster.addNodeProperty(IP_SLAVE_PORT, true, false, ReaderWriters.INTEGER);
         cluster.setNodeProperty(IP_SLAVE_PORT, port);
 

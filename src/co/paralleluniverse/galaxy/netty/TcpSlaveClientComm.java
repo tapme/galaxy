@@ -45,8 +45,6 @@ class TcpSlaveClientComm extends AbstractTcpClient {
     public TcpSlaveClientComm(String name, Cluster cluster) throws Exception {
         super(name, cluster, IP_SLAVE_PORT);
 
-        cluster.addNodeProperty(IP_ADDRESS, true, true, INET_ADDRESS_READER_WRITER);
-        cluster.setNodeProperty(IP_ADDRESS, InetAddress.getLocalHost());
         cluster.addNodeProperty(IP_SLAVE_PORT, true, false, ReaderWriters.INTEGER);
 
         cluster.addSlaveConfigurationListener(scListener);

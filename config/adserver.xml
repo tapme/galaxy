@@ -17,5 +17,9 @@
 
     <import resource="_zookeeper.xml"/>   
     <import resource="_with_cloud_server.xml"/>  
-    
+
+<!--
+    <import resource="_jgroups.xml"/>   
+    <import resource="_with_server.xml"/>
+--> 
 </beans>

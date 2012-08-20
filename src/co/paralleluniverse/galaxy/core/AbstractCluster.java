@@ -141,6 +141,11 @@ public abstract class AbstractCluster extends Service implements Cluster {
 
         myNodeInfo.set(property, value);
     }
+    
+    @Override
+    public synchronized Object getNodeProperty(String property) {
+        return myNodeInfo.get(property);
+    }
 
     protected final void setControlTree(final DistributedTree controlTree) {
         assertDuringInitialization();

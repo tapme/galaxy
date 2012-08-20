@@ -15,6 +15,7 @@
     <bean id="cluster" class="co.paralleluniverse.galaxy.zookeeper.ZooKeeperCluster">
         <constructor-arg name="nodeId" value="${galaxy.nodeId}"/>
         <constructor-arg name="zkConnectString" value="192.168.0.106:2181"/>
+        <constructor-arg name="hostIp" value="192.168.0.102"/>
         <property name="hasServer" ref="has-server"/>
         <property name="sessionTimeoutMs" value="1500"/>
         <property name="connectionTimeoutMs" value="1000"/>

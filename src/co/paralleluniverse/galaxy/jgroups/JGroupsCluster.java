@@ -28,7 +28,11 @@ import co.paralleluniverse.galaxy.core.RefAllocator;
 import co.paralleluniverse.galaxy.core.RefAllocatorSupport;
 import co.paralleluniverse.galaxy.core.RootLocker;
 import static co.paralleluniverse.galaxy.jgroups.JGroupsConstants.*;
+import static co.paralleluniverse.galaxy.netty.IpConstants.INET_ADDRESS_READER_WRITER;
+import static co.paralleluniverse.galaxy.netty.IpConstants.IP_ADDRESS;
+
 import java.beans.ConstructorProperties;
+import java.net.InetAddress;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -73,6 +77,9 @@ class JGroupsCluster extends AbstractCluster implements RootLocker, RefAllocator
     public JGroupsCluster(String name, short nodeId, String jgroupsClusterName) throws Exception {
         super(name, nodeId);
         this.jgroupsClusterName = jgroupsClusterName;
+        
+        addNodeProperty(IP_ADDRESS, true, true, INET_ADDRESS_READER_WRITER);
+        setNodeProperty(IP_ADDRESS, InetAddress.getLocalHost());
     }
 
     public void setJgroupsConfFile(String jgroupsConfFile) {

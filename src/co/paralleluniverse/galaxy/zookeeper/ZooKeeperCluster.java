@@ -20,6 +20,8 @@
 package co.paralleluniverse.galaxy.zookeeper;
 
 import static co.paralleluniverse.galaxy.cluster.DistributedTreeUtil.child;
+import static co.paralleluniverse.galaxy.netty.IpConstants.INET_ADDRESS_READER_WRITER;
+import static co.paralleluniverse.galaxy.netty.IpConstants.IP_ADDRESS;
 import co.paralleluniverse.galaxy.core.AbstractCluster;
 import co.paralleluniverse.galaxy.core.RefAllocator;
 import co.paralleluniverse.galaxy.core.RefAllocatorSupport;
@@ -33,6 +35,7 @@ import com.netflix.curator.framework.recipes.atomic.DistributedAtomicLong;
 import com.netflix.curator.framework.recipes.locks.InterProcessMutex;
 import com.netflix.curator.retry.ExponentialBackoffRetry;
 import java.beans.ConstructorProperties;
+import java.net.InetAddress;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -64,8 +67,17 @@ public class ZooKeeperCluster extends AbstractCluster implements RootLocker, Ref
 
     @ConstructorProperties({"name", "nodeId", "zkConnectString"})
     public ZooKeeperCluster(String name, short nodeId, String zkConnectString) throws Exception {
+    	this(name, nodeId, zkConnectString, null);
+    }
+    
+    @ConstructorProperties({"name", "nodeId", "zkConnectString", "hostIp"})
+    public ZooKeeperCluster(String name, short nodeId, String zkConnectString, String hostIp) throws Exception {
         super(name, nodeId);
         this.zkConnectString = zkConnectString;
+
+        addNodeProperty(IP_ADDRESS, true, true, INET_ADDRESS_READER_WRITER);
+        setNodeProperty(IP_ADDRESS, hostIp == null ? 
+        		InetAddress.getLocalHost() : InetAddress.getByName(hostIp));
     }
 
     public void setConnectionTimeoutMs(int connectionTimeoutMs) {

@@ -210,6 +210,13 @@ public interface Cluster {
     void setNodeProperty(String property, Object value);
 
     /**
+     * Gets a node property that previously set.
+     * @param property The property's name
+     * @return The value
+     */
+    Object getNodeProperty(String property);
+    
+    /**
      * Returns the main resource used by the cluster for coordination, namely a {@code org.jgroups.JChannel} for a JGroups-based cluster or 
      * a {@code com.netflix.curator.framework.CuratorFramework} for a ZooKeeper-based cluster.
      * @return The main resource used by the cluster for coordination, currently of type {@code org.jgroups.JChannel} or {@code org.apache.zookeeper.ZooKeeper}.

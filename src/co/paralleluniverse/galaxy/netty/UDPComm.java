@@ -113,8 +113,6 @@ public class UDPComm extends AbstractComm<InetSocketAddress> {
         this.serverComm = serverComm;
         this.port = port;
 
-        cluster.addNodeProperty(IP_ADDRESS, true, true, INET_ADDRESS_READER_WRITER);
-        cluster.setNodeProperty(IP_ADDRESS, InetAddress.getLocalHost());
         cluster.addNodeProperty(IP_COMM_PORT, true, false, ReaderWriters.INTEGER);
         cluster.setNodeProperty(IP_COMM_PORT, port);
 
@@ -278,7 +276,8 @@ public class UDPComm extends AbstractComm<InetSocketAddress> {
             throw new RuntimeException("multicastGroup not set.");
         }
 
-        this.myAddress = new InetSocketAddress(InetAddress.getLocalHost(), port);
+        //this.myAddress = new InetSocketAddress(InetAddress.getLocalHost(), port);
+        this.myAddress = new InetSocketAddress((InetAddress)getCluster().getNodeProperty(IP_ADDRESS), port);
 
         configureThreadPool(getWorkerExecutorName(), workerExecutor);
 
