@@ -308,6 +308,7 @@ public class UDPComm extends AbstractComm<InetSocketAddress> {
                     public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
                         LOG.info("Channel exception: {} {}", e.getCause().getClass().getName(), e.getCause().getMessage());
                         LOG.debug("Channel exception", e.getCause());
+                        LOG.error("Channel exception", e.getCause());
                     }
 
                 });
