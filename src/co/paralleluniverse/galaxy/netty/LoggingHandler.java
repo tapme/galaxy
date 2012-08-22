@@ -57,8 +57,8 @@ public class LoggingHandler extends SimpleChannelUpstreamHandler {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) throws Exception {
-        logger.warn("Exception caught in channel {}: {} {}", new Object[]{e.getChannel(), e.getCause().getClass().getName(), e.getCause().getMessage()});
-        logger.debug("Exception caught in channel", e.getCause());
+        //logger.warn("Exception caught in channel {}: {} {}", new Object[]{e.getChannel(), e.getCause().getClass().getName(), e.getCause().getMessage()});
+        logger.error("Exception caught in channel", e.getCause());
         super.exceptionCaught(ctx, e);
     }
     

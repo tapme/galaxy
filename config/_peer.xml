@@ -29,9 +29,9 @@
                 <constructor-arg name="maximumPoolSize" value="8"/>
                 <constructor-arg name="keepAliveTime" value="5000"/>
                 <constructor-arg name="unit" value="MILLISECONDS"/>
-                <constructor-arg name="maxQueueSize" value="500"/>
+                <constructor-arg name="maxQueueSize" value="2500"/>
                 <constructor-arg name="workQueue">
-                    <bean class="co.paralleluniverse.common.concurrent.QueueFactory" factory-method="getInstance" c:maxSize="500"/>
+                    <bean class="co.paralleluniverse.common.concurrent.QueueFactory" factory-method="getInstance" c:maxSize="2500"/>
                 </constructor-arg>
             </bean>
         </constructor-arg>
@@ -49,10 +49,9 @@
             </bean>
         </property>
     </bean>
-    
         
     <!--
-    <bean id="localStorage" class="co.paralleluniverse.galaxy.HeapLocalStorage">
+    <bean id="localStorage" class="co.paralleluniverse.galaxy.core.HeapLocalStorage">
         <constructor-arg name="monitoringType" value="METRICS"/>
     </bean>
     -->
